@@ -32,5 +32,10 @@ namespace AnuQRandom.Model
 
         [JsonProperty("success")]
         public bool Success { get; }
+
+        public IReadOnlyList<int> DataNumbers => Data.Select(s => int.TryParse(s, out int number) ? number : (int?)null)
+                                                     .Where(n => n.HasValue)
+                                                     .Select(n => n.Value)
+                                                     .ToList();
     }
 }
