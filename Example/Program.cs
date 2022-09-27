@@ -1,10 +1,13 @@
-﻿namespace Example
+﻿using AnuQRandom;
+using AnuQRandom.Entities;
+
+namespace Example
 {
-	public static class Program
-	{
-		public static async Task GetNumbers_NewApi()
-		{
-            var client = new AnuQRandom.NewApiClient("[API KEY]");
+    public static class Program
+    {
+        public static async Task GetNumbers_NewApi()
+        {
+            var client = new NewApiClient("[API KEY]");
             var data = await client.RequestAsync();
 
             if (data != null && data.Success)
@@ -16,7 +19,7 @@
 
         public static async Task GetNumbers_OldApi()
         {
-            var client = new AnuQRandom.OldApiClient()
+            var client = new OldApiClient()
             {
                 arrayLength = 0x32 // Get 50 numbers
             };
@@ -30,9 +33,24 @@
             }
         }
 
+        public static async Task GetNumbers_FluentStyleConfiguration()
+        {
+            var client = new OldApiClient();
+
+            var data = await client.RequestAsync(new RequestEntity().WithDataType(RequestedDataType.hex16)
+                                                                    .WithBlockSize(0xA)
+                                                                    .WithArrayLength(0x32));
+
+            if (data != null && data.Success)
+            {
+                foreach (var number in data.Data)
+                    Console.WriteLine(number);
+            }
+        }
+
         public static async Task DirtyClientExample()
         {
-            var client = new AnuQRandom.DirtyClient();
+            var client = new DirtyClient();
 
             // Save a random 256 x 256 scatter plot image in the current application working directory.
 
@@ -53,7 +71,7 @@
         }
 
         public static void Main() => GetNumbers_OldApi().GetAwaiter().GetResult();
-	}
+    }
 }
 
 

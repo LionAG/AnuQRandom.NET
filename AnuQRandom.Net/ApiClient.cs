@@ -1,4 +1,5 @@
-﻿using AnuQRandom.Model;
+﻿using AnuQRandom.Entities;
+using AnuQRandom.Model;
 using Newtonsoft.Json;
 
 namespace AnuQRandom
@@ -27,10 +28,27 @@ namespace AnuQRandom
         public abstract int ArrayLength { get; set; }
         public abstract int BlockSize { get; set; }
 
-        protected abstract string GetRequestUrl();
-        public virtual async Task<RequestedData?> RequestAsync()
+        protected string GetRequestUrl(RequestEntity requestEntity)
         {
-            var jsonData = await ReqClient.GetStringAsync(GetRequestUrl());
+            var typeName = Enum.GetName(DataType);
+
+            switch (DataType)
+            {
+                case RequestedDataType.uint8: return $"{ApiEndpoint}?length={arrayLength}&type={typeName}";
+                case RequestedDataType.uint16: return $"{ApiEndpoint}?length={ArrayLength}&type={typeName}";
+                case RequestedDataType.hex16: return $"{ApiEndpoint}?length={ArrayLength}&type={typeName}&size={blockSize}"; ;
+                default: return "";
+            }
+        }
+
+        public virtual async Task<RequestedData?> RequestAsync(RequestEntity? requestEntity = null)
+        {
+            var jsonData = await ReqClient.GetStringAsync(GetRequestUrl(requestEntity ?? new()
+            {
+                ArrayLength = this.ArrayLength,
+                BlockSize = this.BlockSize,
+                DataType = this.DataType
+            }));
 
             if (string.IsNullOrEmpty(jsonData))
             {
@@ -39,6 +57,7 @@ namespace AnuQRandom
 
             return JsonConvert.DeserializeObject<RequestedData>(jsonData);
         }
+
         public virtual RequestedData? Request()
         {
             return RequestAsync().Result;
@@ -95,19 +114,6 @@ namespace AnuQRandom
                 blockSize = value;
             }
         }
-
-        protected override string GetRequestUrl()
-        {
-            var typeName = Enum.GetName(DataType);
-
-            switch (DataType)
-            {
-                case RequestedDataType.uint8: return $"{ApiEndpoint}?length={arrayLength}&type={typeName}";
-                case RequestedDataType.uint16: return $"{ApiEndpoint}?length={ArrayLength}&type={typeName}";
-                case RequestedDataType.hex16: return $"{ApiEndpoint}?length={ArrayLength}&type={typeName}&size={blockSize}"; ;
-                default: return "";
-            }
-        }
     }
 
     /// <summary>
@@ -143,30 +149,23 @@ namespace AnuQRandom
             set
             {
                 if (value < 1 || value > 0xA)
-                    throw new ArgumentException($"{nameof(BlockSize)} must be between 1 and 1024!");
+                    throw new ArgumentException($"{nameof(BlockSize)} must be between 1 and 10!");
 
                 blockSize = value;
             }
         }
 
-        protected override string GetRequestUrl()
-        {
-            var typeName = Enum.GetName(DataType);
-
-            switch (DataType)
-            {
-                case RequestedDataType.uint8: return $"{ApiEndpoint}?length={arrayLength}&type={typeName}";
-                case RequestedDataType.uint16: return $"{ApiEndpoint}?length={ArrayLength}&type={typeName}";
-                case RequestedDataType.hex16: return $"{ApiEndpoint}?length={ArrayLength}&type={typeName}&size={blockSize}"; ;
-                default: return "";
-            }
-        }
-
-        public override async Task<RequestedData?> RequestAsync()
+        public override async Task<RequestedData?> RequestAsync(RequestEntity? requestEntity = null)
         {
             var reqMessage = new HttpRequestMessage()
             {
-                RequestUri = new Uri(GetRequestUrl()),
+                RequestUri = new Uri(GetRequestUrl(requestEntity ?? new()
+                {
+                    ArrayLength = this.ArrayLength,
+                    DataType = this.DataType,
+                    BlockSize = this.BlockSize
+                })),
+
                 Method = HttpMethod.Get,
             };
 
