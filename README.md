@@ -1,4 +1,4 @@
-# AnuQRandom.Net
+# AnuQRandom.NET
 A .NET 6 library for accessing the ANU quantum random number generator API located at: https://quantumnumbers.anu.edu.au
 
 How to use:
@@ -26,6 +26,13 @@ var client = new AnuQRandom.OldApiClient
 	BlockSize = 0x10,
 	ArrayLength = 0x22
 };
+```
+
+or use fluent style configuration:
+```C#
+var data = await client.RequestAsync(new RequestEntity().WithDataType(RequestedDataType.hex16)
+						    	.WithBlockSize(0xA)
+						   	.WithArrayLength(0x32));
 ```
 
 Create an instance of the `DirtyClient` class to access website - provided functionality that is not a part of the official API:
