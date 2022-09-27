@@ -126,10 +126,10 @@ namespace AnuQRandom
         }
 
         /// <summary>
-        /// Random colour
+        /// Random colour (live stream section)
         /// </summary>
         /// <returns></returns>
-        public async Task<Color> GetColorAsync()
+        public async Task<Color> GetLiveColorAsync()
         {
             var colorData = await RequestLiveStreamAsync(LiveStreamType.Color);
             var colorNumber = Convert.ToInt32(colorData, 0x10);
@@ -138,19 +138,19 @@ namespace AnuQRandom
         }
 
         /// <summary>
-        /// Random hex
+        /// Random hex (live stream section)
         /// </summary>
         /// <returns></returns>
-        public async Task<string> GetHexadecimalAsync()
+        public async Task<string> GetLiveHexadecimalAsync()
         {
             return await RequestLiveStreamAsync(LiveStreamType.Hexadecimal);
         }
 
         /// <summary>
-        /// Random binary
+        /// Random binary (live stream section)
         /// </summary>
         /// <returns></returns>
-        public async Task<string> GetBinaryAsync()
+        public async Task<string> GetLiveBinaryAsync()
         {
             return await RequestLiveStreamAsync(LiveStreamType.Binary);
         }
