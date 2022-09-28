@@ -10,7 +10,7 @@ namespace Example
             var client = new NewApiClient("[API KEY]");
             var data = await client.RequestAsync();
 
-            if (data != null && data.Success)
+            if (data.Success)
             {
                 foreach (var number in data.Data)
                     Console.WriteLine(number);
@@ -26,7 +26,7 @@ namespace Example
 
             var data = await client.RequestAsync();
 
-            if (data != null && data.Success)
+            if (data.Success)
             {
                 foreach (var number in data.Data)
                     Console.WriteLine(number);
@@ -41,7 +41,7 @@ namespace Example
                                                                     .WithBlockSize(0xA)
                                                                     .WithArrayLength(0x32));
 
-            if (data != null && data.Success)
+            if (data.Success)
             {
                 foreach (var number in data.Data)
                     Console.WriteLine(number);

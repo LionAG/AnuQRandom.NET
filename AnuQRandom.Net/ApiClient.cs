@@ -41,7 +41,7 @@ namespace AnuQRandom
             }
         }
 
-        public virtual async Task<RequestedData?> RequestAsync(RequestEntity? requestEntity = null)
+        public virtual async Task<RequestedData> RequestAsync(RequestEntity? requestEntity = null)
         {
             var jsonData = await ReqClient.GetStringAsync(GetRequestUrl(requestEntity ?? new()
             {
@@ -61,10 +61,15 @@ namespace AnuQRandom
                 MissingMemberHandling = MissingMemberHandling.Ignore,
             };
 
-            return JsonConvert.DeserializeObject<RequestedData>(jsonData, settings);
+            var deserialized = JsonConvert.DeserializeObject<RequestedData>(jsonData, settings);
+
+            if(deserialized == null)
+                throw new Exception($"JsonConvert.DeserializeObject returned null!");
+
+            return deserialized;
         }
 
-        public virtual RequestedData? Request()
+        public virtual RequestedData Request()
         {
             return RequestAsync().Result;
         }
@@ -161,7 +166,7 @@ namespace AnuQRandom
             }
         }
 
-        public override async Task<RequestedData?> RequestAsync(RequestEntity? requestEntity = null)
+        public override async Task<RequestedData> RequestAsync(RequestEntity? requestEntity = null)
         {
             var reqMessage = new HttpRequestMessage()
             {
@@ -186,7 +191,12 @@ namespace AnuQRandom
                 MissingMemberHandling = MissingMemberHandling.Ignore,
             };
 
-            return JsonConvert.DeserializeObject<RequestedData>(content, settings);
+            var deserialized = JsonConvert.DeserializeObject<RequestedData>(content, settings);
+
+            if (deserialized == null)
+                throw new Exception($"JsonConvert.DeserializeObject returned null!");
+
+            return deserialized;
         }
 
         public NewApiClient(string apiKey)
