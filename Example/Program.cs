@@ -28,7 +28,7 @@ namespace Example
 
             if (data.Success)
             {
-                foreach (var number in data.Data)
+                foreach (var number in data.DataNumbers)
                     Console.WriteLine(number);
             }
         }
