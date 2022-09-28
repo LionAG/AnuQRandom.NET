@@ -6,7 +6,7 @@ A .NET 6 library for accessing the ANU quantum random number generator API locat
 Add `using AnuQRandom;` then:
 
 ```C#
-var client = new NewApiClient("[API KEY]");
+var client = new NewAnuClient("[API KEY]");
 var data = await client.RequestAsync();
 
 if (data.Success)
@@ -20,7 +20,7 @@ To use the old API create an instance of the `OldApiClient` class instead.
 
 Use properties to set custom values for `Block Size`, `Array Length` and `Data Type`:
 ```C#
-var client = new OldApiClient
+var client = new OldAnuClient
 {
 	DataType = RequestedDataType.hex16,
 	BlockSize = 0x10,
@@ -37,7 +37,7 @@ var data = await client.RequestAsync(new RequestEntity().WithDataType(RequestedD
 
 Create an instance of the `DirtyClient` class to access website - provided functionality that is not a part of the official API:
 ```C#
-var client = new AnuQRandom.DirtyClient();
+var client = new DirtyAnuClient();
 
 // Save a random 256 x 256 scatter plot image in the current application working directory.
 
