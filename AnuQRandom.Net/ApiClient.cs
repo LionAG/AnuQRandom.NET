@@ -55,7 +55,13 @@ namespace AnuQRandom
                 throw new Exception("Cannot download data!");
             }
 
-            return JsonConvert.DeserializeObject<RequestedData>(jsonData);
+            var settings = new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+            };
+
+            return JsonConvert.DeserializeObject<RequestedData>(jsonData, settings);
         }
 
         public virtual RequestedData? Request()
@@ -174,7 +180,13 @@ namespace AnuQRandom
             var response = await ReqClient.SendAsync(reqMessage);
             var content = await response.Content.ReadAsStringAsync();
 
-            return JsonConvert.DeserializeObject<RequestedData>(content);
+            var settings = new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+            };
+
+            return JsonConvert.DeserializeObject<RequestedData>(content, settings);
         }
 
         public NewApiClient(string apiKey)
