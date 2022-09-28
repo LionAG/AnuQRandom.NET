@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AnuQRandom.Entities
 {
-    public class RequestEntity
+    public class AnuRequestEntity
     {
         public RequestedDataType DataType { get; set; } = RequestedDataType.uint8;
         
@@ -20,19 +20,19 @@ namespace AnuQRandom.Entities
         /// </summary>
         public int BlockSize { get; set; } = 0xA;
     
-        public RequestEntity WithDataType(RequestedDataType requestedDataType)
+        public AnuRequestEntity WithDataType(RequestedDataType requestedDataType)
         {
             DataType = requestedDataType;
             return this;
         }
 
-        public RequestEntity WithArrayLength(int arrayLength)
+        public AnuRequestEntity WithArrayLength(int arrayLength)
         {
             ArrayLength = arrayLength;
             return this;
         }
 
-        public RequestEntity WithBlockSize(int blockSize)
+        public AnuRequestEntity WithBlockSize(int blockSize)
         {
             BlockSize = blockSize;
             return this;
