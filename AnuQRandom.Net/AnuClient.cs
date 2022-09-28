@@ -11,7 +11,7 @@ namespace AnuQRandom
         hex16
     }
 
-    public abstract class ApiClient
+    public abstract class AnuClient
     {
         protected readonly HttpClient ReqClient;
 
@@ -74,11 +74,11 @@ namespace AnuQRandom
             return RequestAsync().Result;
         }
 
-        public ApiClient()
+        public AnuClient()
         {
             ReqClient = new();
         }
-        ~ApiClient()
+        ~AnuClient()
         {
             ReqClient.Dispose();
         }
@@ -87,7 +87,7 @@ namespace AnuQRandom
     /// <summary>
     /// Use this class to access the old QRNG API located at https://qrng.anu.edu.au
     /// </summary>
-    public class OldApiClient : ApiClient
+    public class OldAnuClient : AnuClient
     {
         protected override string ApiEndpoint => "https://qrng.anu.edu.au/API/jsonI.php";
 
@@ -130,7 +130,7 @@ namespace AnuQRandom
     /// <summary>
     /// Use this class to access the new QRNG API located at https://api.quantumnumbers.anu.edu.au
     /// </summary>
-    public class NewApiClient : ApiClient
+    public class NewAnuClient : AnuClient
     {
         private string ApiKey { get; init; }
         protected override string ApiEndpoint => "https://api.quantumnumbers.anu.edu.au";
@@ -199,7 +199,7 @@ namespace AnuQRandom
             return deserialized;
         }
 
-        public NewApiClient(string apiKey)
+        public NewAnuClient(string apiKey)
         {
             ApiKey = apiKey;
         }

@@ -7,7 +7,7 @@ namespace Example
     {
         public static async Task GetNumbers_NewApi()
         {
-            var client = new NewApiClient("[API KEY]");
+            var client = new NewAnuClient("[API KEY]");
             var data = await client.RequestAsync();
 
             if (data.Success)
@@ -19,7 +19,7 @@ namespace Example
 
         public static async Task GetNumbers_OldApi()
         {
-            var client = new OldApiClient()
+            var client = new OldAnuClient()
             {
                 arrayLength = 0x32 // Get 50 numbers
             };
@@ -35,7 +35,7 @@ namespace Example
 
         public static async Task GetNumbers_FluentStyleConfiguration()
         {
-            var client = new OldApiClient();
+            var client = new OldAnuClient();
 
             var data = await client.RequestAsync(new RequestEntity().WithDataType(RequestedDataType.hex16)
                                                                     .WithBlockSize(0xA)
@@ -50,7 +50,7 @@ namespace Example
 
         public static async Task DirtyClientExample()
         {
-            var client = new DirtyClient();
+            var client = new DirtyAnuClient();
 
             // Save a random 256 x 256 scatter plot image in the current application working directory.
 
