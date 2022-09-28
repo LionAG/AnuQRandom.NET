@@ -1,7 +1,7 @@
 # AnuQRandom.NET
 A .NET 6 library for accessing the ANU quantum random number generator API located at: https://quantumnumbers.anu.edu.au
 
-### How to use:
+### How to use
 
 Add `using AnuQRandom;` then:
 
