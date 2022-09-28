@@ -30,9 +30,9 @@ var client = new OldAnuClient
 
 or use fluent style configuration:
 ```C#
-var data = await client.RequestAsync(new RequestEntity().WithDataType(RequestedDataType.hex16)
-							.WithBlockSize(0xA)
-							.WithArrayLength(0x32));
+var data = await client.RequestAsync(new AnuRequestEntity().WithDataType(RequestedDataType.hex16)
+							   .WithBlockSize(0xA)
+							   .WithArrayLength(0x32));
 ```
 
 Create an instance of the `DirtyClient` class to access website - provided functionality that is not a part of the official API:
