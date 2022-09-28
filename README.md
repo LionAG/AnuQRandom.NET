@@ -16,7 +16,7 @@ if (data.Success)
 }
 ```
 
-To use the old API create an instance of the `OldApiClient` class instead.
+To use the old API create an instance of the `OldAnuClient` class instead.
 
 Use properties to set custom values for `Block Size`, `Array Length` and `Data Type`:
 ```C#
@@ -35,7 +35,7 @@ var data = await client.RequestAsync(new AnuRequestEntity().WithDataType(Request
 							   .WithArrayLength(0x32));
 ```
 
-Create an instance of the `DirtyClient` class to access website - provided functionality that is not a part of the official API:
+Create an instance of the `DirtyAnuClient` class to access website - provided functionality that is not a part of the official API:
 ```C#
 var client = new DirtyAnuClient();
 
