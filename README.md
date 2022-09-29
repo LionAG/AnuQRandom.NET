@@ -35,9 +35,9 @@ var data = await client.RequestAsync(new AnuRequestEntity().WithDataType(Request
 							   .WithArrayLength(0x32));
 ```
 
-Create an instance of the `DirtyAnuClient` class to access website - provided functionality that is not a part of the official API:
+Create an instance of the `WebAnuClient` class to access website - provided functionality that is not a part of the official API:
 ```C#
-var client = new DirtyAnuClient();
+var client = new WebAnuClient();
 
 // Save a random 256 x 256 scatter plot image in the current application working directory.
 
