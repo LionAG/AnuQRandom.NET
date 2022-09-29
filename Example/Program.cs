@@ -50,7 +50,7 @@ namespace Example
 
         public static async Task DirtyClientExample()
         {
-            var client = new DirtyAnuClient();
+            var client = new WebAnuClient();
 
             // Save a random 256 x 256 scatter plot image in the current application working directory.
 

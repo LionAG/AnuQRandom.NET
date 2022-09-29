@@ -6,7 +6,7 @@ namespace AnuQRandom
     /// <summary>
     /// Use this class to access the Blocks, Fun Stuff etc. sections on qrng.anu.edu.au
     /// </summary>
-    public class DirtyAnuClient
+    public class WebAnuClient
     {
         public enum BlockType
         {
@@ -295,11 +295,11 @@ namespace AnuQRandom
             await DecodeAndSaveFile(data, fileName);
         }
 
-        public DirtyAnuClient()
+        public WebAnuClient()
         {
             ReqClient = new();
         }
-        ~DirtyAnuClient()
+        ~WebAnuClient()
         {
 
             ReqClient.Dispose();
