@@ -35,7 +35,7 @@ var data = await client.RequestAsync(new AnuRequestEntity().WithDataType(Request
 							   .WithArrayLength(0x32));
 ```
 
-Create an instance of the `WebAnuClient` class to access website - provided functionality that is not a part of the official API:
+Create an instance of the `WebAnuClient` class to access website - provided functionality that is not a part of the JSON API:
 ```C#
 var client = new WebAnuClient();
 
